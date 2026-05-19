@@ -6,13 +6,12 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
-import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @RedisHash("candidato") // Define a "pasta/prefixo" das chaves no Redis (ex: candidato:1)
-public class Candidado {
+public class Candidato {
 
     private static final long serialVersionUID = 1L;
 
