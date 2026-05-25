@@ -30,7 +30,7 @@ public class AuthService {
             for(Usuario u : usuarioService.listarTodos()){
                 u.setUsername(u.getUsername().toLowerCase());
                 u.setPassword(u.getPassword().toLowerCase());
-                if(u.getUsername().equals(dto.getUsername())){
+                if(u.getUsername().equals(dto.getUsername()) && u.getPassword().equals(dto.getUsername())){
                     user = u;
                     break;
                 }

@@ -1,6 +1,5 @@
 package redis.com.RankRedis.controller;
 
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import redis.com.RankRedis.model.Candidato;
 import redis.com.RankRedis.model.Usuario;
@@ -15,13 +14,11 @@ import java.util.Optional;
 public class AdminController {
     private UsuarioService usuarioService;
     private CandidatoService candidatoService;
-    private StringRedisTemplate redisTemplate;
     private static final String RANKING_KEY = "ranking_eleicao";
 
-    public AdminController(UsuarioService usuarioService, CandidatoService candidatoService, StringRedisTemplate redisTemplate) {
+    public AdminController(UsuarioService usuarioService, CandidatoService candidatoService) {
         this.usuarioService = usuarioService;
         this.candidatoService = candidatoService;
-        this.redisTemplate = redisTemplate;
     }
 
     @GetMapping
@@ -79,6 +76,4 @@ public class AdminController {
     public String resetarEleicao() {
         return candidatoService.resetar();
     }
-
-    // logout
 }
