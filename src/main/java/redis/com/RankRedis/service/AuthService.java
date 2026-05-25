@@ -1,5 +1,6 @@
 package redis.com.RankRedis.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import redis.com.RankRedis.model.TokenBlackList;
 import redis.com.RankRedis.model.Usuario;
@@ -10,12 +11,14 @@ import redis.com.RankRedis.model.repository.TokenBlackListRepository;
 public class AuthService {
     private final JwtService jwtService;
     private final TokenBlackListRepository tokenBlackListRepository;
+    private final PasswordEncoder passwordEncoder;
     private UsuarioService usuarioService;
 
-    public AuthService(JwtService jwtService, TokenBlackListRepository tokenBlackListRepository, UsuarioService usuarioService) {
-        this.jwtService = jwtService;
-        this.tokenBlackListRepository = tokenBlackListRepository;
+    public AuthService(UsuarioService usuarioService, PasswordEncoder passwordEncoder, TokenBlackListRepository tokenBlackListRepository, JwtService jwtService) {
         this.usuarioService = usuarioService;
+        this.passwordEncoder = passwordEncoder;
+        this.tokenBlackListRepository = tokenBlackListRepository;
+        this.jwtService = jwtService;
     }
 
     public String loginUser(LoginDTO dto) {
@@ -25,12 +28,10 @@ public class AuthService {
             return jwtService.gerarToken(dto.getUsername());
         } else {
             dto.setUsername(dto.getUsername().toLowerCase());
-            dto.setPassword(dto.getPassword().toLowerCase());
 
             for(Usuario u : usuarioService.listarTodos()){
                 u.setUsername(u.getUsername().toLowerCase());
-                u.setPassword(u.getPassword().toLowerCase());
-                if(u.getUsername().equals(dto.getUsername()) && u.getPassword().equals(dto.getUsername())){
+                if(u.getUsername().equals(dto.getUsername()) && passwordEncoder.matches(dto.getPassword(), u.getPassword())){
                     user = u;
                     break;
                 }
