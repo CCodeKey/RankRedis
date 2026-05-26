@@ -6,12 +6,11 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
-import java.io.Serializable;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@RedisHash("usuario") // Chaves geradas como usuario:id
+@RedisHash("usuario")
 public class Usuario {
 
     private static final long serialVersionUID = 1L;
@@ -19,11 +18,11 @@ public class Usuario {
     @Id
     private String id;
 
-    @Indexed // Fundamental para o Spring Security achar o usuário pelo login
+    @Indexed
     private String username;
 
     private String password;
 
-    private String role; // "ROLE_USER" ou "ROLE_ADMIN"
+    private String role;
 
 }

@@ -7,6 +7,5 @@ import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends CrudRepository<Usuario, String> {
-    // Fundamental para a lógica do Spring Security encontrar o usuário no login
     Optional<Usuario> findByUsername(String username);
 }

@@ -14,7 +14,6 @@ import java.util.Optional;
 public class AdminController {
     private UsuarioService usuarioService;
     private CandidatoService candidatoService;
-    private static final String RANKING_KEY = "ranking_eleicao";
 
     public AdminController(UsuarioService usuarioService, CandidatoService candidatoService) {
         this.usuarioService = usuarioService;
@@ -71,7 +70,7 @@ public class AdminController {
     }
 
 
-    // Votacao
+    // Votação
     @PostMapping("/reset")
     public String resetarEleicao() {
         return candidatoService.resetar();
